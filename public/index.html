@@ -1,69 +1,87 @@
 <!doctype html>
-<link rel="stylesheet" href="debug.css" />
-<body class="renderDebug">
-    <template id="App">
-        <div>
-            <Counter></Counter>
-            <List></List>
-            <List2></List2>
-        </div>
-    </template>
+<html>
+    <head>
+        <title>Blink</title>
+        <link rel="stylesheet" href="debug.css" />
+        <link rel="stylesheet" href="page.css" />
+    </head>
+    <body class="renderDebug">
+        <h1>blink</h1>
+        <p>an experiment in build-less frontend frameworks.</p>
+        <p>
+            automatic dependency tracking happens via signals, by watching which
+            component reads what. rendering is triggered by accessing or
+            modifying a signal, which allows simple code to modify the state (no
+            immutability). a render loop with requestAnimationFrame batches all
+            updates at 60fps
+        </p>
+        <p>renders are highlighted in <span class="highlight">orange</span></p>
 
-    <template id="counter">
-        <div>
-            <h1>{{ $count }}</h1>
-            <button on:click:increment>Add</button>
-        </div>
-    </template>
+        <template id="app">
+            <div>
+                <h2>Counter</h2>
+                <Counter></Counter>
+                <h2>List (for loop)</h2>
+                <List></List>
+                <Clock></Clock>
+            </div>
+        </template>
 
-    <template id="list">
-        <div>
-            <ul for="$items">
-                <li>{{ self }}</li>
-            </ul>
-            <button on:click:add>Add item</button>
-        </div>
-    </template>
+        <template id="counter">
+            <div>
+                <p>{{ $count }}</p>
+                <button on:click:increment>+</button>
+            </div>
+        </template>
 
-    <template id="list2">
-        <div>
-            <ul for="$items2" as="item">
-                <li>{{ item.name }}</li>
-            </ul>
-            <button on:click:add2>Add item</button>
-        </div>
-    </template>
+        <template id="clock">
+            <div class="clock">
+                <div class="square" :use="{spin}"></div>
+            </div>
+        </template>
 
-    <script type="module">
-        import { render, value, get, set } from "./blink/index.js";
+        <template id="list">
+            <div>
+                <ul for="$items" as="item">
+                    <li>{{ item }}</li>
+                </ul>
+                <button on:click:add>Add item</button>
+            </div>
+        </template>
 
-        let $count = value(0);
-        let $items = value(["beep", "boop"]);
-        let $items2 = value([{ name: "foo" }, { name: "bar" }]);
+        <script type="module">
+            import { render, value, get, set } from "./blink/index.js";
 
-        function add() {
-            console.log("add1");
-            get($items).push(Math.floor(Math.random() * 1e6));
-        }
+            let $count = value(0);
+            let $items = value(["beep", "boop"]);
 
-        function add2() {
-            console.log("add2");
-            get($items2).push(Math.floor(Math.random() * 1e6));
-        }
+            function add() {
+                get($items).push(Math.floor(Math.random() * 1e6));
+            }
 
-        function increment() {
-            set($count, (n) => n + 1);
-        }
+            function increment() {
+                set($count, (n) => n + 1);
+            }
 
-        render("App", document.querySelector("#root"), {
-            $count,
-            $items,
-            $items2,
-            increment,
-            add,
-            add2,
-        });
-    </script>
+            let $clock = value(0);
 
-    <div id="root"></div>
-</body>
+            setInterval(() => {
+                set($clock, (n) => n + 5);
+            }, 1000);
+
+            function spin(node) {
+                node.style.transform = `rotate(${get($clock) % 360}deg`;
+            }
+
+            render("app", "#demo", {
+                $count,
+                $items,
+                increment,
+                add,
+                spin,
+            });
+        </script>
+
+        <div id="demo"></div>
+    </body>
+</html>

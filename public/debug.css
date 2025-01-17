@@ -1,16 +1,19 @@
 @keyframes show-render {
     0% {
-        background-color: rgba(255, 0, 0, 0.5);
+        background-color: rgba(255, 130, 0, 0.7);
     }
     100% {
-        background-color: rgba(255, 0, 0, 0);
+        background-color: reset;
     }
 }
 
 body.renderDebug * {
-    /* outline: 2px solid red; */
-    animation-duration: 0.6s;
+    animation-duration: 0.4s;
     animation-name: show-render;
     animation-delay: 0.1s;
     animation-fill-mode: forwards;
+}
+
+.highlight {
+    background-color: rgba(255, 130, 0, 0.7) !important;
 }
