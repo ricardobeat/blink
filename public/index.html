@@ -13,9 +13,11 @@
             component reads what. rendering is triggered by accessing or
             modifying a signal, which allows simple code to modify the state (no
             immutability). a render loop with requestAnimationFrame batches all
-            updates at 60fps
+            updates at 60fps, and goes idle when there's nothing to do.
         </p>
-        <p>renders are highlighted in <span class="highlight">orange</span></p>
+        <p>
+            [renders are highlighted in <span class="highlight">orange]</span>
+        </p>
 
         <template id="app">
             <div>
@@ -83,5 +85,21 @@
         </script>
 
         <div id="demo"></div>
+
+        <p>
+            <a href="/todo-app">todo app</a> example and
+            <a
+                href="https://github.com/ricardobeat/blink/tree/main/public/todo-app"
+                >code</a
+            >
+        </p>
+        <p>
+            <a
+                href="https://github.com/ricardobeat/blink/tree/main/public/blink"
+                >sources</a
+            >
+        </p>
+
+        <p>by <a href="https://ricar.do">ricar.do</a></p>
     </body>
 </html>
