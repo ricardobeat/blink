@@ -128,7 +128,7 @@ export function render(id, target, inputProps = {}, mode = RenderMode.REPLACE) {
         skipChildren = true;
         let childElement = node.firstElementChild;
         let propName = getExpressionKey(attr.value);
-        let eachName = node.getAttribute("as") || SELF;
+        let eachName = getExpressionKey(node.getAttribute("as")) || SELF;
         let signal = getExpressionValue(propName, props);
 
         if (!signal) {

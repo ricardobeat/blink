@@ -16,7 +16,7 @@ export default createComponent(
         <input type="text" placeholder="Add new todo" on:keydown="{onEnter}" />
       </div>
       <ul for="{todos}" as="{todo}">
-        <todo-item :todo="{todo}"></todo-item>
+        <todo-item></todo-item>
       </ul>
       <div>
         <button on:click="{allDone}">Mark all as done</button>
