@@ -109,12 +109,9 @@ export function render(id, target, inputProps = {}, mode = RenderMode.REPLACE) {
     let tagName = node.tagName.toLowerCase();
     let skipChildren = false;
 
-    console.log(node);
-
     for (let attr of node.attributes) {
       // EVENT handlers
       if (attr.name.startsWith("on:")) {
-        console.log(attr.name);
         let [_, event, _key] = attr.name.split(":");
         let key = _key || getExpressionKey(attr.value);
         let fn = getExpressionValue(key, propsWithDefaults);
@@ -194,9 +191,7 @@ export function render(id, target, inputProps = {}, mode = RenderMode.REPLACE) {
     // when a for loop is used, rendering the children will be delegated
     // to the inner loop, so we can skip the children of the current node
     if (skipChildren) {
-      console.log({ skipChildren }, walker.currentNode);
       walker.lastChild();
-      console.log("curren", walker.currentNode);
     }
   }
 
@@ -280,7 +275,6 @@ function getExpressionKey(expression) {
 }
 
 function getPathValue(path, obj) {
-  console.log(path, obj);
   return path.split(".").reduce((acc, key) => acc[key], obj);
 }
 
