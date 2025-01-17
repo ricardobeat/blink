@@ -9,7 +9,10 @@ import {
 
 export { value, createComponent };
 
-let DEBUG = false;
+let DEBUG =
+  (typeof window !== "undefined" &&
+    window.location.search.includes("debug=")) ||
+  false;
 
 let currentRenderingNode = null;
 let initialized = false;
