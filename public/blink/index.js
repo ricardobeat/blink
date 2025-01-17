@@ -123,6 +123,17 @@ export function render(id, target, inputProps = {}, mode = RenderMode.REPLACE) {
         node.addEventListener(event, (e) => fn.apply(null, [e, props]), false);
       }
 
+      // use directive
+      if (attr.name === ":use") {
+        let fn = getExpressionValue(attr.value, propsWithDefaults);
+        if (typeof fn !== "function") {
+          throw new Error(
+            `${attr.value} is not a function. Did you forget to pass it as a prop to the ${id} component?`,
+          );
+        }
+        tasks.push(() => fn(node, props));
+      }
+
       // FOR loop
       if (attr.name === "for") {
         skipChildren = true;
