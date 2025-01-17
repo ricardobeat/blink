@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Todo app</title>
+        <link rel="stylesheet" href="../debug.css" />
+        <link rel="stylesheet" href="main.css" />
+    </head>
+
+    <body>
+        <div id="root"></div>
+
+        <script type="module">
+            import { render, value, get, set } from "../blink/index.js";
+            import { todos } from "./todos.js";
+            import TodoApp from "./todo-app.js";
+
+            render(TodoApp, "#root", { todos });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,20 @@
+<template id="app">
+    <div>
+        <h1>{{ bacon }}</h1>
+    </div>
+</template>
+
+<script>
+    $: state = {
+        bacon: "Bacon is good",
+    };
+
+    $: state((potato = 1));
+
+    $: console.log("potato");
+
+    let root = document.querySelector("template").cloneNode(true);
+    root.content.querySelector("h1").innerText = state.bacon;
+
+    document.body.appendChild(root.content);
+</script>

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "serve-static-bun": "^0.5.3"
+  }
+}

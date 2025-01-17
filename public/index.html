@@ -1,0 +1,69 @@
+<!doctype html>
+<link rel="stylesheet" href="debug.css" />
+<body class="renderDebug">
+    <template id="App">
+        <div>
+            <Counter></Counter>
+            <List></List>
+            <List2></List2>
+        </div>
+    </template>
+
+    <template id="counter">
+        <div>
+            <h1>{{ $count }}</h1>
+            <button on:click:increment>Add</button>
+        </div>
+    </template>
+
+    <template id="list">
+        <div>
+            <ul for="$items">
+                <li>{{ self }}</li>
+            </ul>
+            <button on:click:add>Add item</button>
+        </div>
+    </template>
+
+    <template id="list2">
+        <div>
+            <ul for="$items2" as="item">
+                <li>{{ item.name }}</li>
+            </ul>
+            <button on:click:add2>Add item</button>
+        </div>
+    </template>
+
+    <script type="module">
+        import { render, value, get, set } from "./blink/index.js";
+
+        let $count = value(0);
+        let $items = value(["beep", "boop"]);
+        let $items2 = value([{ name: "foo" }, { name: "bar" }]);
+
+        function add() {
+            console.log("add1");
+            get($items).push(Math.floor(Math.random() * 1e6));
+        }
+
+        function add2() {
+            console.log("add2");
+            get($items2).push(Math.floor(Math.random() * 1e6));
+        }
+
+        function increment() {
+            set($count, (n) => n + 1);
+        }
+
+        render("App", document.querySelector("#root"), {
+            $count,
+            $items,
+            $items2,
+            increment,
+            add,
+            add2,
+        });
+    </script>
+
+    <div id="root"></div>
+</body>
