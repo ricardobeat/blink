@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+    <body>
+        <div id="counter-root"></div>
+        <div id="list-root"></div>
+        <script type="module">
+            import * as Beep from "./beep.js";
+            import * as List from "./list.js";
+            import { alive } from "./main.js";
+
+            alive(Beep, document.querySelector("#counter-root"));
+            alive(List, document.querySelector("#list-root"));
+        </script>
+    </body>
+</html>

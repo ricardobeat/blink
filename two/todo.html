@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+    <body>
+        <div id="app"></div>
+        <script type="module">
+            import * as TodoApp from "./TodoApp.js";
+            import { alive } from "./main.js";
+
+            alive(TodoApp, document.querySelector("#app"));
+        </script>
+    </body>
+</html>
